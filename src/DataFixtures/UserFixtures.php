@@ -20,7 +20,10 @@ class UserFixtures extends Fixture
                 -> setLastname($faker->lastName())
                 ->setEmail('librarian@email.fr')
                 ->setPassword('abcd1234')
-                ->setGender('Mme');
+                ->setGender('Mme')
+                ->setRoles([
+                    "ROLE_LIBRARIAN"
+                ]);
 
         $subscriber -> setFirstname($faker->firstName())
                 -> setLastname($faker->lastName())
