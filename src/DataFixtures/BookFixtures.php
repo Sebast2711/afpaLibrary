@@ -33,6 +33,7 @@ class BookFixtures extends Fixture
                 for ($k = 0; $k < mt_rand(2, 4); $k++){
                     $book = new Book();
                     $book -> setTitle($faker->sentence())
+                          -> setAuthor($faker->name())
                           -> setSummary($faker->paragraph())
                           -> setQuantity($faker->numberBetween(1, 33))
                           -> setPublishedDate($faker->dateTimeBetween('-15 years'))
