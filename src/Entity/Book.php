@@ -56,6 +56,11 @@ class Book
      */
     private $loans;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $author;
+
     public function __construct()
     {
         $this->loans = new ArrayCollection();
@@ -164,6 +169,18 @@ class Book
                 $loan->setBookId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
