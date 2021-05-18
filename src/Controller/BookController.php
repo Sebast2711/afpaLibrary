@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,5 +91,25 @@ class BookController extends AbstractController
         }
 
         return $this->redirectToRoute('book_index');
+    }
+    
+    /**
+     * @Route("/blog/{id}", name="detail_art")
+     * 
+     */
+
+    public function detailArticle(Book $book, EntityManagerInterface $manager, Request $request)
+    {
+        
+    
+
+            
+        
+
+        return $this->render('blog/detail.html.twig', [
+            'book' => $book,
+            
+            // 'formComment' => $form->createView()
+        ]);
     }
 }
