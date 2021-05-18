@@ -9,6 +9,7 @@
 /vendor/
 /composer.json
 /composer.lock
+.php-version
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
