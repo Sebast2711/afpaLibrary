@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,13 +43,23 @@ class Book
      * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $genre_id;
+    private $genre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $type_id;
+    private $type;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="book_id", orphanRemoval=true)
+     */
+    private $loans;
+
+    public function __construct()
+    {
+        $this->loans = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +134,36 @@ class Book
     public function setTypeId(?Type $type_id): self
     {
         $this->type_id = $type_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Loan[]
+     */
+    public function getLoans(): Collection
+    {
+        return $this->loans;
+    }
+
+    public function addLoan(Loan $loan): self
+    {
+        if (!$this->loans->contains($loan)) {
+            $this->loans[] = $loan;
+            $loan->setBookId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLoan(Loan $loan): self
+    {
+        if ($this->loans->removeElement($loan)) {
+            // set the owning side to null (unless already changed)
+            if ($loan->getBookId() === $this) {
+                $loan->setBookId(null);
+            }
+        }
 
         return $this;
     }
