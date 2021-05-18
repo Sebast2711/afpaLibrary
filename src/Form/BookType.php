@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Book;
+use App\Entity\Genre;
+use App\Entity\Type;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,8 +19,14 @@ class BookType extends AbstractType
             ->add('summary')
             ->add('quantity')
             ->add('published_date')
-            ->add('genre_id')
-            ->add('type_id')
+            ->add('genre_id', EntityType::class, [
+                'class' => Genre::class, //Permet de récupérer le nom de la classe
+                'choice_label' => 'name' //On récupére le nom du genre
+            ])
+            ->add('type_id', EntityType::class, [
+                'class' => Type::class, //Permet de récupérer le nom de la classe
+                'choice_label' => 'name' //On récupére le nom du type
+            ])
         ;
     }
 
