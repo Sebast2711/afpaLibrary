@@ -29,7 +29,7 @@ class TypeController extends AbstractController
 
     /**
      * @Route("/new", name="type_new", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN", statusCode=401, message="You do not have permission") 
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function new(Request $request): Response
     {
@@ -63,7 +63,7 @@ class TypeController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="type_edit", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN", statusCode=401, message="You do not have permission") 
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function edit(Request $request, Type $type): Response
     {
@@ -84,7 +84,7 @@ class TypeController extends AbstractController
 
     /**
      * @Route("/{id}", name="type_delete", methods={"POST"})
-     * @IsGranted("ROLE_ADMIN", statusCode=401, message="You do not have permission") 
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function delete(Request $request, Type $type): Response
     {

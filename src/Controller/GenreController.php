@@ -40,7 +40,7 @@ class GenreController extends AbstractController
 
     /**
      * @Route("/new", name="genre_new", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN", statusCode=401, message="You do not have permission") 
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function new(Request $request): Response
     {
@@ -64,7 +64,7 @@ class GenreController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="genre_edit", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN", statusCode=401, message="You do not have permission") 
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function edit(Request $request, Genre $genre): Response
     {
@@ -85,7 +85,7 @@ class GenreController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="genre_delete", methods={"POST"})
-     * @IsGranted("ROLE_ADMIN", statusCode=401, message="You do not have permission") 
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
 
      */
     public function delete(Request $request, Genre $genre): Response
