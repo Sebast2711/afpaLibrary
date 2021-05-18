@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Genre;
 use App\Form\Genre1Type;
+use App\Form\GenreType;
 use App\Repository\GenreRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +45,7 @@ class GenreController extends AbstractController
     public function new(Request $request): Response
     {
         $genre = new Genre();
-        $form = $this->createForm(Genre1Type::class, $genre);
+        $form = $this->createForm(GenreType::class, $genre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +68,7 @@ class GenreController extends AbstractController
      */
     public function edit(Request $request, Genre $genre): Response
     {
-        $form = $this->createForm(Genre1Type::class, $genre);
+        $form = $this->createForm(GenreType::class, $genre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

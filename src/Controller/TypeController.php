@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Type;
 use App\Form\Type1Type;
+use App\Form\TypeType;
 use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,7 @@ class TypeController extends AbstractController
     public function new(Request $request): Response
     {
         $type = new Type();
-        $form = $this->createForm(Type1Type::class, $type);
+        $form = $this->createForm(TypeType::class, $type);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +67,7 @@ class TypeController extends AbstractController
      */
     public function edit(Request $request, Type $type): Response
     {
-        $form = $this->createForm(Type1Type::class, $type);
+        $form = $this->createForm(TypeType::class, $type);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
