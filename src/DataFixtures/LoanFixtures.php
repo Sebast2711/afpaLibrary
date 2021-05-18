@@ -36,7 +36,8 @@ class LoanFixtures extends Fixture
                       -> setSummary($faker->paragraph())
                       -> setQuantity($faker->numberBetween(1, 33))
                       -> setPublishedDate($faker->dateTimeBetween('-15 years'))
-                      -> setTypeId($type)
+                      -> setTypeId($type)                          
+                      -> setAuthor($faker->name())
                       -> setGenreId($genre);
                 $manager -> persist($book);
         
