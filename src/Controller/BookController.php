@@ -27,6 +27,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function new(Request $request): Response
     {
@@ -60,6 +61,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function edit(Request $request, Book $book): Response
     {
@@ -80,6 +82,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/{id}", name="book_delete", methods={"POST"})
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function delete(Request $request, Book $book): Response
     {
