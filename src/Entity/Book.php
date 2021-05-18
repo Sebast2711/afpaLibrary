@@ -116,24 +116,24 @@ class Book
 
     public function getGenreId(): ?Genre
     {
-        return $this->genre_id;
+        return $this->genre;
     }
 
-    public function setGenreId(?Genre $genre_id): self
+    public function setGenreId(?Genre $genre): self
     {
-        $this->genre_id = $genre_id;
+        $this->genre = $genre;
 
         return $this;
     }
 
     public function getTypeId(): ?Type
     {
-        return $this->type_id;
+        return $this->type;
     }
 
-    public function setTypeId(?Type $type_id): self
+    public function setTypeId(?Type $type): self
     {
-        $this->type_id = $type_id;
+        $this->type = $type;
 
         return $this;
     }
