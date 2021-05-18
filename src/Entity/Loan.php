@@ -73,21 +73,21 @@ class Loan
         return $this->user_id;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUserId(?User $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
 
     public function getBookId(): ?Book
     {
-        return $this->book_id;
+        return $this->book;
     }
 
-    public function setBookId(?Book $book_id): self
+    public function setBookId(?Book $book): self
     {
-        $this->book_id = $book_id;
+        $this->book = $book;
 
         return $this;
     }
