@@ -39,14 +39,20 @@
                      <li class="nav-item">
                         <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_logout')}}">Logout</a>
                     </li>
+                    {# IF the user is a librarian he can register a new user #}
+                    {% if is_granted ('ROLE_LIBRARIAN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_register')}}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><small class="text-primary"> Hello {{ app.user.firstname }}</small></a>
+                        </li>
+                    {% endif %}
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_login')}}">Login</a>
                     </li>
                 {% endif %}
-                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mon Compte</a>
-                </li>
             </ul>
             {# <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
