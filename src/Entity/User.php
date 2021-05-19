@@ -215,7 +215,7 @@ class User implements UserInterface
     {
         if (!$this->loans->contains($loan)) {
             $this->loans[] = $loan;
-            $loan->setUserId($this);
+            $loan->setUser($this);
         }
 
         return $this;
@@ -225,8 +225,8 @@ class User implements UserInterface
     {
         if ($this->loans->removeElement($loan)) {
             // set the owning side to null (unless already changed)
-            if ($loan->getUserId() === $this) {
-                $loan->setUserId(null);
+            if ($loan->getUser() === $this) {
+                $loan->setUser(null);
             }
         }
 
