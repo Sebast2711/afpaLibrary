@@ -22,7 +22,10 @@
                 <td>{{ type.description }}</td>
                 <td>
                     <a href="{{ path('type_show', {'id': type.id}) }}">show</a>
-                    <a href="{{ path('type_edit', {'id': type.id}) }}">edit</a>
+                    {% if is_granted('ROLE_LIBRARIAN') %}
+                        <a href="{{ path('type_edit', {'id': type.id}) }}">edit</a>
+                        <a href="{{ path('type_delete', {'id': type.id}) }}">delete</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
