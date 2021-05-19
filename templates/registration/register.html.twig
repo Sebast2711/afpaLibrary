@@ -11,7 +11,8 @@
 
     {{ form_start(registrationForm) }}
 
-        {{ form_row(registrationForm.email, {'attr':{'placeholder':"Enter your mail" }}) }}
+        {{ form_row(registrationForm.email, {
+            label: 'Email', 'attr':{'placeholder':"Enter your mail" }}) }}
         {{ form_row(registrationForm.firstname, {
             label: 'Firstname', 'attr':{'placeholder':"Enter your firsname" }
         }) }}
@@ -27,9 +28,6 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password', 'attr':{'placeholder':"Enter your password" }
         }) }}
-        {# {{ form_row(registrationForm.confirmPassword, {
-            label: 'Confirm your password', 'attr':{'placeholder':"Confirm your password" } 
-        })}} #}
          {{ form_row(registrationForm.agreeTerms, {
             label: 'Accept terms'
         }) }}
