@@ -23,35 +23,40 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{{path('home')}}">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('book_index')}}">Library</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('genre_index')}}">Genre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('type_index')}}">Type</a>
+                </li>
+                {# IF user is connected he can logout else he can login #}
+                {% if app.user %}
+                     <li class="nav-item">
+                        <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_logout')}}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_login')}}">Login</a>
+                    </li>
+                {% endif %}
+                 <li class="nav-item">
                     <a class="nav-link" href="#">Mon Compte</a>
                 </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Genre
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_login')}}">Login</a>
-                </li>
             </ul>
-            <form class="d-flex">
+            {# <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> #}
             </div>
         </div>
     </nav>
     {% if app.user %}
-        <p> Hello {{ app.user.firstname }} | <a href="{{ path('app_logout') }}">Logout</a></p>
+        <p> Hello {{ app.user.firstname }}</p>
     {% endif %}
         {% block body %}
 
