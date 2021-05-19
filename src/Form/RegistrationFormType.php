@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -27,7 +28,11 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => "Password confirmation is different",
+                'first_options' => ['label' => "Password"],
+                'second_options' => ['label' => "Confirm your password"],
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -49,8 +54,8 @@ class RegistrationFormType extends AbstractType
             ->add('gender')
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Utilisateur' => "ROLE_USER",
-                    'Administrateur' => "ROLE_ADMIN",
+                    'User' => "ROLE_USER",
+                    'Administor' => "ROLE_ADMIN",
                     'Bibliothecaire' => "ROLE_BIBLIO"
                 ],
                 'expanded' => true,
