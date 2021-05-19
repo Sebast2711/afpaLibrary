@@ -21,8 +21,11 @@
                 <td>{{ genre.name }}</td>
                 <td>{{ genre.description }}</td>
                 <td>
-                    <a href="{{ path('genre_show', {'id': genre.id}) }}">show</a>
-                    <a href="{{ path('genre_edit', {'id': genre.id}) }}">edit</a>
+                        <a href="{{ path('genre_show', {'id': genre.id}) }}">show</a>
+                     {% if is_granted('ROLE_LIBRARIAN') %}
+                        <a href="{{ path('genre_edit', {'id': genre.id}) }}">edit</a>   
+                        <a href="{{ path('genre_delete', {'id': genre.id}) }}">delete</a> 
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
