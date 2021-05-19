@@ -39,6 +39,12 @@
                      <li class="nav-item">
                         <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_logout')}}">Logout</a>
                     </li>
+                    {# IF the user is a librarian he can register a new user #}
+                    {% if is_granted ('ROLE_LIBRARIAN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_register')}}">Register</a>
+                        </li>
+                    {% endif %}
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_login')}}">Login</a>
