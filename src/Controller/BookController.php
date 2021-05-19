@@ -85,7 +85,7 @@ class BookController extends AbstractController
      * @Route("/{id}", name="book_delete", methods={"POST"})
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
-    public function delete(Request $request, Book $book): Response
+    public function delete(Request $request, Book $book) 
     {
         if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

@@ -25,8 +25,12 @@
                 <td>{{ book.quantity }}</td>
                 <td>{{ book.publishedDate ? book.publishedDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
+                    
                     <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
+                    {% if is_granted('ROLE_LIBRARIAN') %}
                     <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+                    <a href="{{ path('book_delete', {'id': book.id}) }}">delete</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
