@@ -11,6 +11,8 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Summary</th>
+                <th>Genre</th>
+                <th>Type</th>
                 <th>Quantity</th>
                 <th>Published_date</th>
                 <th>actions</th>
@@ -22,6 +24,8 @@
                 <td>{{ book.id }}</td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.summary }}</td>
+                <td>{{ book.genreId.name }}</td>
+                <td>{{ book.typeId.name }}</td>
                 <td>{{ book.quantity }}</td>
                 <td>{{ book.publishedDate ? book.publishedDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
