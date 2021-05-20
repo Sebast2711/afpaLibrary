@@ -1,12 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Home{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/home.css">
+{% endblock %}
 {% block body %}
 
-    <h1 class="m-5 text-center"> Welcome to our website </h1>
+    <img src="\images\university-library.jpg" alt="coucou" class="img-acceuil">
+    <h1 class="m-5 text-center"> Welcome to afpa Library </h1>
 
     <p class="m-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis libero natus ipsa, doloribus, dolorum accusamus ipsum hic cumque odit optio ipsam excepturi aperiam vero placeat? Vel doloremque dolores praesentium ex. lore</p>
     <p class="m-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa facilis quidem culpa, maiores voluptatem ut, voluptate quibusdam vitae optio a autem? Perferendis corporis sequi provident hic, eum qui commodi recusandae! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis libero natus ipsa, doloribus, dolorum accusamus ipsum hic cumque odit optio ipsam excepturi aperiam vero placeat? Vel doloremque dolores praesentium ex. lore</p>
+
+    <h3>Most borrowed book</h3>
+
 
 {% endblock %}
