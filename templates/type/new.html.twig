@@ -3,9 +3,17 @@
 {% block title %}New Type{% endblock %}
 
 {% block body %}
-    <h1>Create new Type</h1>
+
+    <div class="m-3">
+        <a href="{{ path('type_index') }}" class="d-flex justify-content-center">back to list</a>
+    </div>
+
+    <div class="container d-flex justify-content-around align-items-center mt-5 bg-light m-5 p-5">
+
+        <h1>New Type</h1>
 
     {{ include('type/_form.html.twig') }}
 
-    <a href="{{ path('type_index') }}">back to list</a>
+    </div>
+
 {% endblock %}

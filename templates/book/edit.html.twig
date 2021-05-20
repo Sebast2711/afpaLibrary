@@ -3,11 +3,19 @@
 {% block title %}Edit Book{% endblock %}
 
 {% block body %}
-    <h1>Edit Book</h1>
+
+    <div class="m-3">
+        <a href="{{ path('book_index') }}">back to list</a>
+    </div>
+
+    <div class="container d-flex justify-content-around align-items-center mt-5 bg-light m-5 p-5">
+
+        <h1>Edit Book</h1>
 
     {{ include('book/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('book_index') }}">back to list</a>
+    </div>
 
     {{ include('book/_delete_form.html.twig') }}
+
 {% endblock %}
