@@ -4,16 +4,18 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {

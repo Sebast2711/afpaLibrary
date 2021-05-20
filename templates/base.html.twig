@@ -44,10 +44,10 @@
                         <li class="nav-item">
                             <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_register')}}">Register</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><small class="text-primary"> Hello {{ app.user.firstname }}</small></a>
-                        </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><small class="text-primary"> {{ app.user.firstname }}</small></a>
+                    </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_login')}}">Login</a>

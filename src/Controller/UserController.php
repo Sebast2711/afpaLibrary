@@ -8,11 +8,13 @@ use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
+ * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
  */
 class UserController extends AbstractController
 {
