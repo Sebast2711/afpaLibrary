@@ -13,13 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/user")
- * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
+ * @Route("/user") 
  */
 class UserController extends AbstractController
 {
     /**
      * @Route("/", name="user_index", methods={"GET"})
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission")
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -30,6 +30,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission")
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
@@ -69,6 +70,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission")
      */
     public function edit(Request $request, User $user): Response
     {
@@ -89,6 +91,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="user_delete", methods={"POST"})
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission")
      */
     public function delete(Request $request, User $user): Response
     {

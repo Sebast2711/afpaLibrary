@@ -60,7 +60,7 @@ class User implements UserInterface
     private $gender;
 
     /**
-     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="user_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="user", orphanRemoval=true)
      */
     private $loans;
 
