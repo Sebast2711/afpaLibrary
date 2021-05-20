@@ -131,7 +131,6 @@ class LoanController extends AbstractController
         return $this->redirectToRoute("loan_index");
     }
 
-
     /**
      * @Route ("/{id}/newLoan", name="loan_newByUser")
      * @IsGranted("ROLE_SUBSCRIBER", statusCode=401, message="You do not have permission") 
