@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
+ * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
  */
 class UserController extends AbstractController
 {
