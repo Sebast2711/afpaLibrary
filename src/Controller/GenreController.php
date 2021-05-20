@@ -6,6 +6,7 @@ use App\Entity\Genre;
 use App\Form\Genre1Type;
 use App\Form\GenreType;
 use App\Repository\GenreRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -88,14 +89,10 @@ class GenreController extends AbstractController
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
 
      */
-    public function delete(Request $request, Genre $genre): Response
+    public function delete(EntityManagerInterface $manager, Genre $genre): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$genre->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($genre);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('genre_index');
+        $manager -> remove($genre);
+        $manager -> flush();
+        return $this->redirectToRoute("genre_index");
     }
 }
