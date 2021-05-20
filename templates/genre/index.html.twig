@@ -5,10 +5,17 @@
 {% block body %}
     <h1>Genre index</h1>
 
-    <table class="table">
+    {% if is_granted("ROLE_LIBRARIAN") %}
+        <div class="d-grid gap-2">
+            <a href="{{ path('genre_new') }}" class = "btn btn-large btn-outline-success">Create new</a>
+        </div>
+    {% endif %}
+    
+
+    <table class="table table-light table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Name</th>
                 <th>Description</th>
                 <th>actions</th>
@@ -17,7 +24,7 @@
         <tbody>
         {% for genre in genres %}
             <tr>
-                <td>{{ genre.id }}</td>
+                {# <td>{{ genre.id }}</td> #}
                 <td>{{ genre.name }}</td>
                 <td>{{ genre.description }}</td>
                 <td>
@@ -36,5 +43,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('genre_new') }}">Create new</a>
 {% endblock %}
