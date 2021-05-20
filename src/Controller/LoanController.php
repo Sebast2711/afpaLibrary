@@ -98,7 +98,7 @@ class LoanController extends AbstractController
      */
     public function delete(Request $request, Loan $loan): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $loan->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$loan->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($loan);
             $entityManager->flush();
@@ -122,7 +122,7 @@ class LoanController extends AbstractController
         //Date heure française
         date_default_timezone_set('Europe/Paris');
         $loan->setReturnDate(new DateTime());
-        $book->setQuantity($book->getQuantity() + 1);
+        $book->setQuantity($book->getQuantity()+1);
         $manager->persist($book);
         $manager->persist($loan);
         $manager->flush();
@@ -140,7 +140,7 @@ class LoanController extends AbstractController
     public function newLoanByUser(Book $book, EntityManagerInterface $manager){
 
         if ($book->getQuantity() <= 0 ){
-            return $this -> redirectToRoute("book_index");    
+            return $this->redirectToRoute("book_index");    
         }
 
         $user = $this->getUser();
