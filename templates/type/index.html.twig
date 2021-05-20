@@ -4,11 +4,18 @@
 
 {% block body %}
     <h1>Type index</h1>
+    
+    {% if is_granted("ROLE_LIBRARIAN") %}
+        <div class="d-grid gap-2">
+            <a href="{{ path('type_new') }}" class = "btn btn-large btn-outline-success">Create new</a>
+        </div>
+    {% endif %}
 
-    <table class="table">
+
+    <table class="table table-light table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Name</th>
                 <th>Description</th>
                 <th>actions</th>
@@ -17,7 +24,7 @@
         <tbody>
         {% for type in types %}
             <tr>
-                <td>{{ type.id }}</td>
+                {# <td>{{ type.id }}</td> #}
                 <td>{{ type.name }}</td>
                 <td>{{ type.description }}</td>
                 <td>
@@ -36,5 +43,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('type_new') }}">Create new</a>
 {% endblock %}
