@@ -55,8 +55,8 @@ class LoanFixtures extends Fixture
         $manager -> persist($user);
 
         $loan -> setLoanDate($faker->dateTimeBetween('-3 months'))
-              -> setUserId($user)
-              -> setBookId($book);
+              -> setUser($user)
+              -> setBook($book);
 
         $manager -> persist($loan);
 
