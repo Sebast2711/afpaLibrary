@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\LoanRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/user") 
+ * @Route("/user")
  */
 class UserController extends AbstractController
 {
@@ -60,11 +61,18 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})
+     * @IsGranted("ROLE_SUBSCRIBER", statusCode=401, message="You do not have permission") 
      */
-    public function show(User $user): Response
-    {
+    public function show(User $user, LoanRepository $loanRepository): Response
+    {   
+        // dd($loanRepository->findBy(['user'=> $user->getId()]));
+        // dd($user);
+        // dd($loanRepository->findAll());
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'loan' => $loanRepository->findBy(['user'=> $user->getId()]),
+            'allBookLoan' => $loanRepository->findAll(),
         ]);
     }
 
