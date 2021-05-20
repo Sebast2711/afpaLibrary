@@ -4,12 +4,21 @@
 
 {% block body %}
     <h1>Book index</h1>
+    
+    
+    {% if is_granted('ROLE_LIBRARIAN') %}
+        <div class="d-grid gap-2">
+            <a href="{{ path('book_new') }}" class = "btn btn-large btn-outline-success">Create new</a>
+        </div>
+    {% endif %}
 
-    <table class="table">
+
+    <table class="table table-light table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Title</th>
+                <th>Author</th>
                 <th>Summary</th>
                 <th>Genre</th>
                 <th>Type</th>
@@ -21,8 +30,9 @@
         <tbody>
         {% for book in books %}
             <tr>
-                <td>{{ book.id }}</td>
+                {# <td>{{ book.id }}</td> #}
                 <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
                 <td>{{ book.summary }}</td>
                 {% if book.genreId %}
                     <td>{{ book.genreId.name }}</td>   
@@ -35,10 +45,11 @@
                     <td></td>
                 {% endif %}
                 <td>{{ book.quantity }}</td>
-                <td>{{ book.publishedDate ? book.publishedDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ book.publishedDate ? book.publishedDate|date('d-m-Y') : '' }}</td>
                 <td>
                     <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
-                    {% if book.quantity > 0 %}
+
+                    {% if book.quantity > 0 and app.user and (is_granted('ROLE_LIBRARIAN') == false) %}
                         <a href="{{ path('loan_newByUser', {'id': book.id}) }}">loan it !</a>                    
                     {% endif %}
                     {% if is_granted('ROLE_LIBRARIAN') %}
@@ -55,5 +66,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('book_new') }}">Create new</a>
+
 {% endblock %}

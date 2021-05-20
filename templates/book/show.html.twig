@@ -4,13 +4,15 @@
 
 {% block body %}
     <h1>Book</h1>
+   <a href="{{ path('book_index') }}">back to list</a>
 
-    <table class="table">
+
+    <table class="table container-fluid my-5">
         <tbody>
-            <tr>
+            {# <tr>
                 <th>Id</th>
                 <td>{{ book.id }}</td>
-            </tr>
+            </tr> #}
             <tr>
                 <th>Title</th>
                 <td>{{ book.title }}</td>
@@ -18,6 +20,10 @@
             <tr>
                 <th>Summary</th>
                 <td>{{ book.summary }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ book.author }}</td>
             </tr>
             <tr>
                 {% if book.genreId %}
@@ -37,16 +43,27 @@
             </tr>
             <tr>
                 <th>Published_date</th>
-                <td>{{ book.publishedDate ? book.publishedDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ book.publishedDate ? book.publishedDate|date('d-m-Y') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    {% if book.quantity > 0 %}
+    {% if book.quantity > 0 and app.user and (is_granted('ROLE_LIBRARIAN') == false) %}
         <a href="{{ path('loan_newByUser', {'id': book.id}) }}">loan it !</a>                    
-    {% endif %}    <a href="{{ path('book_index') }}">back to list</a>
+    {% endif %}    
+ 
 
-    <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+    {% if is_granted('ROLE_LIBRARIAN') %}
+        <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+        <a href="{{ path('book_delete', {'id': book.id}) }}">delete</a>
+    {% endif %}
+    
+    {# Default user #}
+    {% if is_granted('ROLE_SUBSCRIBER') == false %}
+        <p>If you want to loan this book please login <a href="{{path('app_login')}}">Login</a></p>
+        
+    {% endif %}
+    
 
-    {{ include('book/_delete_form.html.twig') }}
+
 {% endblock %}
