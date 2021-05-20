@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\Loan;
 use App\Form\LoanType;
+use App\Repository\BookRepository;
 use App\Repository\LoanRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +22,7 @@ class LoanController extends AbstractController
 {
     /**
      * @Route("/", name="loan_index", methods={"GET"})
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function index(LoanRepository $loanRepository): Response
     {
@@ -27,7 +32,7 @@ class LoanController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="loan_new", methods={"GET","POST"})
+     * @Route("/newByLibrarian", name="loan_new", methods={"GET","POST"})
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function new(Request $request): Response
@@ -95,5 +100,57 @@ class LoanController extends AbstractController
         }
 
         return $this->redirectToRoute('loan_index');
+    }
+
+
+    /**
+     * @Route("/{id}/returnLoan", name="loan_return")
+     * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
+     * Return a book 
+     * Update the return date
+     * Update the quantity of this book available
+     */
+    public function returnLoan (Loan $loan, BookRepository $bookRepo, EntityManagerInterface $manager) {
+
+        $book = $bookRepo->findOneBy(['id' => $loan->getBook()->getId()]);
+        $loan->setReturnDate(new DateTime());
+        $book->setQuantity($book->getQuantity()+1);
+        $manager->persist($book);
+        $manager->persist($loan);
+        $manager->flush();
+
+
+        return $this->redirectToRoute("loan_index");
+    }
+
+    
+    /**
+     * @Route ("/{id}/newLoan", name="loan_newByUser")
+     * @IsGranted("ROLE_SUBSCRIBER", statusCode=401, message="You do not have permission") 
+     */
+
+    public function newLoanByUser(Book $book, EntityManagerInterface $manager){
+        
+        $loan = new Loan();
+        $user = $this->getUser();
+        
+        // Redirect to the correct route for librarian
+        foreach ($user->getRoles() as $role) {
+            if ($role == "ROLE_LIBRARIAN"){
+                return $this -> redirectToRoute("loan_new");
+            }
+        }
+
+        $loan -> setUser($user)
+              -> setBook ($book)
+              -> setLoanDate(new DateTime());   
+                           
+        $book->setQuantity($book->getQuantity() - 1);   
+        $manager -> persist($book);
+        $manager -> persist($loan);
+        $manager -> flush();
+
+
+        return $this->redirectToRoute("book_index");
     }
 }

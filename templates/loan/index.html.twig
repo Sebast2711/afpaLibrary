@@ -4,7 +4,6 @@
 
 {% block body %}
     <h1>Loan index</h1>
-
     <table class="table">
         <thead>
             <tr>
@@ -22,7 +21,13 @@
                 <td>{{ loan.returnDate ? loan.returnDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('loan_show', {'id': loan.id}) }}">show</a>
-                    <a href="{{ path('loan_edit', {'id': loan.id}) }}">edit</a>
+                    {% if app.user and is_granted('ROLE_LIBRARIAN') %}
+                        <a href="{{ path('loan_edit', {'id': loan.id}) }}">edit</a>
+                        {# If the returnDate is not null then it show the return link #}
+                        {% if not loan.returnDate %}
+                            <a href="{{path('loan_return', {'id':loan.id}) }}">return</a>                        
+                        {% endif %}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -33,5 +38,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('loan_new') }}">Create new</a>
+    {% if app.user and is_granted('ROLE_LIBRARIAN') %}
+        <a href="{{ path('loan_new') }}">Create new</a>
+    {% endif %}
+
 {% endblock %}
