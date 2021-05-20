@@ -84,14 +84,14 @@ class TypeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="type_delete", methods={"POST"})
+     * @Route("/{id}/delete", name="type_delete")
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function delete(EntityManagerInterface $manager, Type $type): Response
     {
         $manager -> remove($type);
         $manager -> flush();
-        return $this->redirectToRoute("categories");
+        return $this->redirectToRoute("type_index");
 
     }
 }

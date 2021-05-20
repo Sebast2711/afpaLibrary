@@ -24,8 +24,16 @@
                 <td>{{ book.id }}</td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.summary }}</td>
-                <td>{{ book.genreId.name }}</td>
-                <td>{{ book.typeId.name }}</td>
+                {% if book.genreId %}
+                    <td>{{ book.genreId.name }}</td>   
+                {% else %}
+                    <td></td>
+                {% endif %}
+                {% if book.typeId %}
+                    <td>{{ book.typeId.name }}</td>                
+                {% else %}
+                    <td></td>
+                {% endif %}
                 <td>{{ book.quantity }}</td>
                 <td>{{ book.publishedDate ? book.publishedDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>

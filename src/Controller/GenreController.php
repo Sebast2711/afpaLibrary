@@ -85,7 +85,7 @@ class GenreController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="genre_delete", methods={"POST"})
+     * @Route("/{id}/delete", name="genre_delete")
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
 
      */
