@@ -4,21 +4,34 @@
 
 {% block body %}
     <h1>Loan index</h1>
-    <table class="table">
+    
+    {% if is_granted("ROLE_LIBRARIAN") %}
+        <div class="d-grid gap-2">
+            <a href="{{ path('loan_new') }}" class = "btn btn-large btn-outline-success">Create new</a>
+        </div>
+    {% endif %}
+
+
+    <table class="table table-light table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
                 <th>Loan_date</th>
                 <th>Return_date</th>
+                <th>User</th>
+                <th>Book</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for loan in loans %}
             <tr>
-                <td>{{ loan.id }}</td>
-                <td>{{ loan.loanDate ? loan.loanDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ loan.returnDate ? loan.returnDate|date('Y-m-d H:i:s') : '' }}</td>
+                {# <td>{{ loan.id }}</td> #}     
+                <td>{{ loan.user.gender }} {{ loan.user.firstname}} {{ loan.user.lastname }}</td>
+                <td>{{ loan.book.title }}</td>
+                <td>{{ loan.loanDate ? loan.loanDate|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ loan.returnDate ? loan.returnDate|date('d-m-Y H:i:s') : '' }}</td>
+           
                 <td>
                     <a href="{{ path('loan_show', {'id': loan.id}) }}">show</a>
                     {% if app.user and is_granted('ROLE_LIBRARIAN') %}
@@ -38,8 +51,6 @@
         </tbody>
     </table>
 
-    {% if app.user and is_granted('ROLE_LIBRARIAN') %}
-        <a href="{{ path('loan_new') }}">Create new</a>
-    {% endif %}
+
 
 {% endblock %}
