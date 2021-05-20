@@ -3,44 +3,74 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>{{ user.gender }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_index') }}">back to list</a>
-
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+    <h1>Users</h1>
+    {% if app.user %}
+        {% if is_granted('ROLE_SUBSCRIBER') %}
+                <table class="table">
+                    <tbody>
+                        {# <tr>
+                            <th>Id</th>
+                            <td>{{ user.id }}</td>
+                        </tr> #}
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        {# <tr>
+                            <th>Roles</th>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        </tr> #}
+                        {# <tr>
+                            <th>Password</th>
+                            <td>{{ user.password }}</td>
+                        </tr> #}
+                        <tr>
+                            <th>Firstname</th>
+                            <td>{{ user.firstname }}</td>
+                        </tr>
+                        <tr>
+                            <th>Lastname</th>
+                            <td>{{ user.lastname }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>{{ user.gender }}</td>
+                        </tr>
+                    </tbody>
+                </table> 
+                <div class="container-loan">
+                    <h1>List of borrowed books</h1>
+                    {% if is_granted('ROLE_LIBRARIAN') %}
+                        {# if role is librarian -> show all book loan #}
+                        {% for booksloan in allBookLoan %}
+                            <div class="card_loan">
+                                <h3>{{booksloan.book.title}}</h3>
+                                <h4>{{booksloan.book.author}}</h4>
+                                {# <img src="https://dummyimage.com/300x400/000/fff" alt="image book"> #}
+                                <p>Emprunté le : {{booksloan.loanDate | date("d/m/Y")}}</p>
+                                    {% if booksloan.returnDate %}
+                                        <p>Retourné le : {{booksloan.returnDate | date("d/m/Y")}}</p>                                
+                                    {% endif %}
+                                <hr>
+                            </div>                            
+                        {% endfor %}
+                        
+                    {% else %}
+                        {# else role is subscriber -> show books loan of user subscriber #}
+                        {% for booksloan in loan %}
+                            <div class="card_loan">
+                                <h3>{{booksloan.book.title}}</h3>
+                                <h4>{{booksloan.book.author}}</h4>
+                                {# <img src="https://dummyimage.com/300x400/000/fff" alt="image book"> #}
+                                <p>Emprunté le : {{booksloan.loanDate | date("d/m/Y")}}</p>
+                                {% if booksloan.returnDate %}
+                                    <p>Retourné le : {{booksloan.returnDate | date("d/m/Y")}}</p>                                
+                                {% endif %}
+                                <hr>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>           
+        {% endif %}
+    {% endif %}
 {% endblock %}
