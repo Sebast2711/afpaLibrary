@@ -38,7 +38,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('book_index') }}">back to list</a>
+    {% if book.quantity > 0 %}
+        <a href="{{ path('loan_newByUser', {'id': book.id}) }}">loan it !</a>                    
+    {% endif %}    <a href="{{ path('book_index') }}">back to list</a>
 
     <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
 

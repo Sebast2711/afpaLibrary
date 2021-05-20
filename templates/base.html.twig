@@ -28,7 +28,7 @@
                     <a class="nav-link active" aria-current="page" href="{{path('home')}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('book_index')}}">Library</a>
+                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('book_index')}}">Book</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('genre_index')}}">Genre</a>
@@ -44,7 +44,10 @@
                     {# IF the user is a librarian he can register a new user #}
                     {% if is_granted ('ROLE_LIBRARIAN') %}
                         <li class="nav-item">
-                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_register')}}">Register</a>
+                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('loan_index')}}">Loan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('user_index')}}">Admin</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
