@@ -52,7 +52,7 @@ class Book
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="book_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Loan::class, mappedBy="book", orphanRemoval=true)
      */
     private $loans;
 
