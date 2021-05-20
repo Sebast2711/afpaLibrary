@@ -15,8 +15,6 @@ class LoanType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('loan_date')
-            ->add('return_date')
             ->add('user', EntityType::class ,[
                 "class"=>User::class, 
                 "choice_label" => "firstname" 

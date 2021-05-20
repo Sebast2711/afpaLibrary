@@ -20,12 +20,16 @@
                 <td>{{ book.summary }}</td>
             </tr>
             <tr>
-                <th>Genre</th>
-                <td>{{ book.genreId.name }}</td>
+                {% if book.genreId %}
+                    <th>Genre</th>
+                    <td>{{ book.genreId.name }}</td>
+                {% endif %}
             </tr>
             <tr>
-                <th>Type</th>
-                <td>{{ book.typeId.name }}</td>
+                {% if book.typeId %}
+                    <th>Type</th>
+                    <td>{{ book.typeId.name }}</td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Quantity</th>
