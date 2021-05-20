@@ -5,6 +5,10 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
+
+        {# Styles #}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
         {% block stylesheets %}
         {% endblock %}
 
@@ -23,33 +27,42 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{path('home')}}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('book_index')}}">Book</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('genre_index')}}">Genre</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('type_index')}}">Type</a>
-                </li>
-                {# IF user is connected he can logout else he can login #}
-                {% if app.user %}
-                     <li class="nav-item">
-                        <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_logout')}}">Logout</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{path('home')}}">Home</a>
                     </li>
-                    {# IF the user is a librarian he can register a new user #}
-                    {% if is_granted ('ROLE_LIBRARIAN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('book_index')}}">Book</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('genre_index')}}">Genre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('type_index')}}">Type</a>
+                    </li>
+                    {# IF user is connected he can logout else he can login #}
+                    {% if app.user %}
                         <li class="nav-item">
-                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('loan_index')}}">Loan</a>
+                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_logout')}}">Logout</a>
                         </li>
+                        {# IF the user is a librarian he can register a new user #}
+                        {% if is_granted ('ROLE_LIBRARIAN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('loan_index')}}">Loan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('user_index')}}">Admin</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('user_index')}}">Admin</a>
+                            <a class="nav-link" href="#"><small class="text-primary"> {{ app.user.firstname }}</small></a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_login')}}">Login</a>
                         </li>
                     {% endif %}
+                </ul>
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('user_show', {'id': user.id})}}"><small class="text-primary"> {{ app.user.firstname }}</small></a>
                     </li>
@@ -59,15 +72,18 @@
                     </li>
                 {% endif %}
             </ul>
-            {# <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> #}
+
             </div>
         </div>
     </nav>
         {% block body %}
 
         {% endblock %}
+
+        {# Scripts #}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+        {% block javascripts %}
+        {% endblock %}
+
     </body>
 </html>
