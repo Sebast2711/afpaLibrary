@@ -42,7 +42,12 @@ class LoanController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
+            //Date heure française
+            date_default_timezone_set('Europe/Paris');
+            $loan->setLoanDate(new DateTime());
+            $entityManager->persist($loan);
             $entityManager->persist($loan);
             $entityManager->flush();
 
@@ -106,9 +111,12 @@ class LoanController extends AbstractController
      * Update the return date
      * Update the quantity of this book available
      */
-    public function returnLoan (Loan $loan, BookRepository $bookRepo, EntityManagerInterface $manager) {
+    public function returnLoan(Loan $loan, BookRepository $bookRepo, EntityManagerInterface $manager)
+    {
 
         $book = $bookRepo->findOneBy(['id' => $loan->getBook()->getId()]);
+        //Date heure française
+        date_default_timezone_set('Europe/Paris');
         $loan->setReturnDate(new DateTime());
         $book->setQuantity($book->getQuantity()+1);
         $manager->persist($book);
@@ -119,7 +127,6 @@ class LoanController extends AbstractController
         return $this->redirectToRoute("loan_index");
     }
 
-    
     /**
      * @Route ("/{id}/newLoan", name="loan_newByUser")
      * @IsGranted("ROLE_SUBSCRIBER", statusCode=401, message="You do not have permission") 
@@ -128,14 +135,14 @@ class LoanController extends AbstractController
     public function newLoanByUser(Book $book, EntityManagerInterface $manager){
 
         if ($book->getQuantity() <= 0 ){
-            return $this -> redirectToRoute("book_index");    
+            return $this->redirectToRoute("book_index");    
         }
 
         $user = $this->getUser();
         // Redirect to the correct route for librarian
         foreach ($user->getRoles() as $role) {
-            if ($role == "ROLE_LIBRARIAN"){
-                return $this -> redirectToRoute("loan_new");
+            if ($role == "ROLE_LIBRARIAN") {
+                return $this->redirectToRoute("loan_new");
             }
         }
 
