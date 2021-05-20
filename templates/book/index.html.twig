@@ -30,7 +30,9 @@
                 <td>{{ book.publishedDate ? book.publishedDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
-                    <a href="{{ path('loan_newByUser', {'id': book.id}) }}">loan it !</a>
+                    {% if book.quantity > 0 %}
+                        <a href="{{ path('loan_newByUser', {'id': book.id}) }}">loan it !</a>                    
+                    {% endif %}
                     {% if is_granted('ROLE_LIBRARIAN') %}
                         <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
                         <a href="{{ path('book_delete', {'id': book.id}) }}">delete</a>

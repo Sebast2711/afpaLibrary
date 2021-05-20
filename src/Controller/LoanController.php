@@ -130,10 +130,12 @@ class LoanController extends AbstractController
      */
 
     public function newLoanByUser(Book $book, EntityManagerInterface $manager){
-        
-        $loan = new Loan();
+
+        if ($book->getQuantity() <= 0 ){
+            return $this -> redirectToRoute("book_index");    
+        }
+
         $user = $this->getUser();
-        
         // Redirect to the correct route for librarian
         foreach ($user->getRoles() as $role) {
             if ($role == "ROLE_LIBRARIAN"){
@@ -141,10 +143,11 @@ class LoanController extends AbstractController
             }
         }
 
+        $loan = new Loan();
         $loan -> setUser($user)
               -> setBook ($book)
               -> setLoanDate(new DateTime());   
-                           
+
         $book->setQuantity($book->getQuantity() - 1);   
         $manager -> persist($book);
         $manager -> persist($loan);
