@@ -93,7 +93,7 @@ class LoanController extends AbstractController
      */
     public function delete(Request $request, Loan $loan): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$loan->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $loan->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($loan);
             $entityManager->flush();
@@ -110,11 +110,14 @@ class LoanController extends AbstractController
      * Update the return date
      * Update the quantity of this book available
      */
-    public function returnLoan (Loan $loan, BookRepository $bookRepo, EntityManagerInterface $manager) {
+    public function returnLoan(Loan $loan, BookRepository $bookRepo, EntityManagerInterface $manager)
+    {
 
         $book = $bookRepo->findOneBy(['id' => $loan->getBook()->getId()]);
+        //Date heure française
+        date_default_timezone_set('Europe/Paris');
         $loan->setReturnDate(new DateTime());
-        $book->setQuantity($book->getQuantity()+1);
+        $book->setQuantity($book->getQuantity() + 1);
         $manager->persist($book);
         $manager->persist($loan);
         $manager->flush();
@@ -123,32 +126,33 @@ class LoanController extends AbstractController
         return $this->redirectToRoute("loan_index");
     }
 
-    
+
     /**
      * @Route ("/{id}/newLoan", name="loan_newByUser")
      * @IsGranted("ROLE_SUBSCRIBER", statusCode=401, message="You do not have permission") 
      */
 
-    public function newLoanByUser(Book $book, EntityManagerInterface $manager){
-        
+    public function newLoanByUser(Book $book, EntityManagerInterface $manager)
+    {
+
         $loan = new Loan();
         $user = $this->getUser();
-        
+
         // Redirect to the correct route for librarian
         foreach ($user->getRoles() as $role) {
-            if ($role == "ROLE_LIBRARIAN"){
-                return $this -> redirectToRoute("loan_new");
+            if ($role == "ROLE_LIBRARIAN") {
+                return $this->redirectToRoute("loan_new");
             }
         }
 
-        $loan -> setUser($user)
-              -> setBook ($book)
-              -> setLoanDate(new DateTime());   
-                           
-        $book->setQuantity($book->getQuantity() - 1);   
-        $manager -> persist($book);
-        $manager -> persist($loan);
-        $manager -> flush();
+        $loan->setUser($user)
+            ->setBook($book)
+            ->setLoanDate(new DateTime());
+
+        $book->setQuantity($book->getQuantity() - 1);
+        $manager->persist($book);
+        $manager->persist($loan);
+        $manager->flush();
 
 
         return $this->redirectToRoute("book_index");
