@@ -41,13 +41,13 @@ class Book
 
     /**
      * @ORM\ManyToOne(targetEntity=Genre::class, inversedBy="books")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $genre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="books")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $type;
 
