@@ -93,17 +93,13 @@ class LoanController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="loan_delete", methods={"POST"})
+     * @Route("/{id}/delete", name="loan_delete", methods={"POST"})
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
-    public function delete(Request $request, Loan $loan): Response
+    public function delete(EntityManagerInterface $manager, Loan $loan): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$loan->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($loan);
-            $entityManager->flush();
-        }
-
+        $manager -> remove($loan);
+        $manager -> flush();
         return $this->redirectToRoute('loan_index');
     }
 
