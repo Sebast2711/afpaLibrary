@@ -29,17 +29,6 @@ class GenreController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="genre_show", methods={"GET"})
-     */
-    public function show(Genre $genre): Response
-    {
-        return $this->render('genre/show.html.twig', [
-            'genre' => $genre,
-        ]);
-    }
-
-
-    /**
      * @Route("/new", name="genre_new", methods={"GET","POST"})
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
@@ -62,6 +51,19 @@ class GenreController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    
+    /**
+     * @Route("/{id}", name="genre_show", methods={"GET"})
+     */
+    public function show(Genre $genre): Response
+    {
+        return $this->render('genre/show.html.twig', [
+            'genre' => $genre,
+        ]);
+    }
+
+
 
     /**
      * @Route("/{id}/edit", name="genre_edit", methods={"GET","POST"})
