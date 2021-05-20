@@ -38,20 +38,21 @@
                     </li>
                     {# IF user is connected he can logout else he can login #}
                     {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_logout')}}">Logout</a>
-                        </li>
                         {# IF the user is a librarian he can register a new user #}
                         {% if is_granted ('ROLE_LIBRARIAN') %}
                             <li class="nav-item">
                                 <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('loan_index')}}">Loan</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('user_index')}}">Admin</a>
+                                <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('user_index')}}">User</a>
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><small class="text-primary"> {{ app.user.firstname }}</small></a>
+                            <a class="nav-link" href="{{path('user_show', {'id':app.user.id})}}"><small class="text-primary"> {{ app.user.firstname }}</small></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_logout')}}">Logout</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
