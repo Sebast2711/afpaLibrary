@@ -29,42 +29,27 @@ class UserType extends AbstractType
             ->add('firstname', TextType::class, array(
                 'label' => 'Firstname ',
                 'attr' => array(
-                    'placeholder' => 'Enter your firstname'
+                    'placeholder' => 'Enter firstname'
                 )
             ))
             ->add('lastname', TextType::class, array(
             'label' => 'Lastname ',
             'attr' => array(
-                'placeholder' => 'Enter your lastname'
+                'placeholder' => 'Enter lastname'
             )
             ))
             ->add('email', TextType::class, array(
                 'label' => 'Email ',
                 'attr' => array(
-                    'placeholder' => 'Enter your email'
+                    'placeholder' => 'Enter email'
                 )
             ))
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => "Password confirmation is different",
-                'first_options' => ['label' => "Password", 'attr' => array('placeholder' => 'Enter password')],
-                'second_options' => ['label' => "Confirm password", 'attr' => array('placeholder' => 'Confirm password')],
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                // 'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+            ->add('password', PasswordType::class, array(
+                'label' => 'Password ',
+                'attr' => array(
+                    'placeholder' => 'Enter password'
+                )
+            ))
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Librarian' => "ROLE_LIBRARIAN"
