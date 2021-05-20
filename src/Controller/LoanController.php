@@ -42,7 +42,12 @@ class LoanController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
+            //Date heure française
+            date_default_timezone_set('Europe/Paris');
+            $loan->setLoanDate(new DateTime());
+            $entityManager->persist($loan);
             $entityManager->persist($loan);
             $entityManager->flush();
 
