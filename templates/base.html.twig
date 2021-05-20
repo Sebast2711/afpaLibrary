@@ -63,16 +63,6 @@
                         </li>
                     {% endif %}
                 </ul>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{path('user_show', {'id': user.id})}}"><small class="text-primary"> {{ app.user.firstname }}</small></a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" tabindex="-1" aria-disabled="true" href="{{path('app_login')}}">Login</a>
-                    </li>
-                {% endif %}
-            </ul>
-
             </div>
         </div>
     </nav>
