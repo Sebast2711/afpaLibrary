@@ -98,16 +98,17 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"POST"})
+     * @Route("/{id}/delete", name="user_delete", methods={"GET"})
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission")
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        //Condition only use for button utilisation in file _delete_form
+        // if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
-        }
+        // }
 
         return $this->redirectToRoute('user_index');
     }

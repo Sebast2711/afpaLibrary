@@ -3,9 +3,17 @@
 {% block title %}New Book{% endblock %}
 
 {% block body %}
-    <h1>Create new Book</h1>
+
+    <div class="m-3">
+            <a href="{{ path('book_index') }}">back to list</a>
+    </div>
+
+    <div class="container d-flex justify-content-around align-items-center mt-5 bg-light m-5 p-5">
+
+        <h1>New Book</h1>
 
     {{ include('book/_form.html.twig') }}
 
-    <a href="{{ path('book_index') }}">back to list</a>
+    </div>
+
 {% endblock %}

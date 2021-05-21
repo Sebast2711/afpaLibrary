@@ -7,7 +7,13 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <div class="m-3">
+        <a href="{{ path('user_index') }}">back to list</a>
+    </div>
+
+    <div class="container d-flex justify-content-around align-items-center mt-5 bg-light m-5 p-5">
+
+    <h1 class="m-5 p-5">Register</h1>
 
     {{ form_start(registrationForm) }}
 
@@ -32,7 +38,9 @@
             label: 'Accept terms'
         }) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-dark">Save</button>
+    </div>
 
     {{ form_end(registrationForm) }}
+
 {% endblock %}

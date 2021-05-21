@@ -93,7 +93,7 @@ class LoanController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="loan_delete", methods={"POST"})
+     * @Route("/{id}/delete", name="loan_delete", methods={"GET"})
      * @IsGranted("ROLE_LIBRARIAN", statusCode=401, message="You do not have permission") 
      */
     public function delete(EntityManagerInterface $manager, Loan $loan): Response
